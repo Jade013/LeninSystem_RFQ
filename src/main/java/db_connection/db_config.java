@@ -52,7 +52,7 @@ public class db_config {
         }
     }
     
-    public void insertRequest(String clientName, Integer contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability) {
+    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability) {
         String requestApp = "pending";
 
         Document document = new Document("client_name", clientName)

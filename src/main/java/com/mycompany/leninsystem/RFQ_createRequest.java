@@ -304,21 +304,12 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         //        String projectTitle = proj_title.getText();
         String clientName = client_name.getText();
         String projAddress = proj_location.getText();
-        String contactNoStr = contact_no.getText();
+        String contactNo = contact_no.getText();
         String clientEmail = client_email.getText();
         String requestFrom = request_by.getText();
         String sendTo = send_to_email.getText();
         String requestApp = "pending";
 
-
-
-        // Validate contact number
-        if (!contactNoStr.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Contact number must be numeric.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Integer contactNo = Integer.parseInt(contactNoStr);
         
         // Get stock availability value
         String stockAvailability;
