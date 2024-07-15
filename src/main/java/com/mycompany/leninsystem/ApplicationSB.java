@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author predator 300
  */
+
+@SpringBootApplication
 public class ApplicationSB {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationSB.class, args);
