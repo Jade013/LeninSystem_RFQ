@@ -61,6 +61,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Incoplete_stock = new javax.swing.JRadioButton();
         Client_Information1 = new javax.swing.JLabel();
         Client_Information2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -152,6 +153,8 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Client_Information2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Client_Information2.setText("PRODUCT INFORMATION");
 
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
@@ -208,19 +211,21 @@ public class RFQ_createRequest extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
-                        .addComponent(Client_Information)
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(Complete_stock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Incoplete_stock)
-                        .addGap(164, 164, 164))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
-                        .addComponent(Client_Information2)
-                        .addGap(164, 164, 164))))
+                    .addComponent(jLabel2)
+                    .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
+                            .addComponent(Client_Information)
+                            .addGap(175, 175, 175))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addGap(18, 18, 18)
+                            .addComponent(Complete_stock)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Incoplete_stock)
+                            .addGap(164, 164, 164))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
+                            .addComponent(Client_Information2)
+                            .addGap(164, 164, 164)))))
         );
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +267,9 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                     .addComponent(Incoplete_stock)
                     .addComponent(Complete_stock)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(send_req_rfq_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -396,6 +403,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private javax.swing.JTextField contact_no;
     private panels.header_rfq header_rfq1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
