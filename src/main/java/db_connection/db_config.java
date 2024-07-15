@@ -52,7 +52,7 @@ public class db_config {
         }
     }
     
-    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability) {
+    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability, byte[] fileData) {
         String requestApp = "pending";
 
         Document document = new Document("client_name", clientName)
@@ -63,6 +63,12 @@ public class db_config {
                 .append("send_to", sendTo)
                 .append("request_app", requestApp)
                 .append("stock_availability", stockAvailability);
+                
+    if (fileData != null) {
+        document.append("file_data", fileData);
+    } else {
+        System.out.println("lol");
+    }
 
         try {
             MongoDatabase database = getDatabase();
