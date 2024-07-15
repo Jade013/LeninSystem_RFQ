@@ -12,7 +12,10 @@ import java.sql.SQLException;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javax.swing.JOptionPane;
+import org.bson.Document;
 
 
 
@@ -46,6 +49,31 @@ public class db_config {
     public void close() {
         if (mongoClient != null) {
             mongoClient.close();
+        }
+    }
+    
+    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability) {
+        String requestApp = "pending";
+
+        Document document = new Document("client_name", clientName)
+                .append("proj_location", projAddress)
+                .append("contact_no", contactNo)
+                .append("client_email", clientEmail)
+                .append("request_from", requestFrom)
+                .append("send_to", sendTo)
+                .append("request_app", requestApp)
+                .append("stock_availability", stockAvailability);
+
+        try {
+            MongoDatabase database = getDatabase();
+            MongoCollection<Document> collection = database.getCollection("RFQ");
+            collection.insertOne(document);
+            JOptionPane.showMessageDialog(null, "Request submitted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            close();
         }
     }
 }
