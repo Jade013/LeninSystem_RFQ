@@ -29,6 +29,8 @@ public class RFQ_dsb extends javax.swing.JFrame {
         body_login1 = new panels.body_login();
         sidebar_dsb1 = new panels.sidebar_dsb();
         create_request_btn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        RFQView_Table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -42,15 +44,29 @@ public class RFQ_dsb extends javax.swing.JFrame {
             }
         });
 
+        RFQView_Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Clien Name", "Location", "Stock Availability", "Project Status", "Action"
+            }
+        ));
+        jScrollPane1.setViewportView(RFQView_Table);
+
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
                 .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(create_request_btn)
-                .addGap(0, 381, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(create_request_btn)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -58,8 +74,10 @@ public class RFQ_dsb extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(21, 21, 21)
                 .addComponent(create_request_btn)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -67,7 +85,9 @@ public class RFQ_dsb extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(body_login1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(body_login1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,8 +140,10 @@ public class RFQ_dsb extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable RFQView_Table;
     private panels.body_login body_login1;
     private javax.swing.JButton create_request_btn;
+    private javax.swing.JScrollPane jScrollPane1;
     private panels.sidebar_dsb sidebar_dsb1;
     // End of variables declaration//GEN-END:variables
 }
