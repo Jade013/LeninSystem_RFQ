@@ -8,12 +8,12 @@ package com.mycompany.leninsystem;
  *
  * @author predator 300
  */
-public class RFQ_dsb extends javax.swing.JFrame {
+public class bidding_dsb extends javax.swing.JFrame {
 
     /**
      * Creates new form RFQ_dsb
      */
-    public RFQ_dsb() {
+    public bidding_dsb() {
         initComponents();
     }
 
@@ -27,40 +27,26 @@ public class RFQ_dsb extends javax.swing.JFrame {
     private void initComponents() {
 
         body_login1 = new panels.body_login();
-        create_request_btn = new javax.swing.JButton();
-        sidebar_dsb2 = new panels.sidebar_dsb();
+        sidebar_dsb1 = new panels.sidebar_dsb();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         body_login1.setBackground(new java.awt.Color(255, 255, 255));
 
-        create_request_btn.setText("create request");
-        create_request_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                create_request_btnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addComponent(sidebar_dsb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(create_request_btn)
-                .addGap(0, 381, Short.MAX_VALUE))
+                .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 521, Short.MAX_VALUE))
         );
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(body_login1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(create_request_btn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(body_login1Layout.createSequentialGroup()
-                .addComponent(sidebar_dsb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,12 +63,6 @@ public class RFQ_dsb extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void create_request_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_request_btnActionPerformed
-        // TODO add your handling code here:
-        RFQ_createRequest rfq_cr = new RFQ_createRequest();
-        rfq_cr.setVisible(true);
-    }//GEN-LAST:event_create_request_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,7 +101,6 @@ public class RFQ_dsb extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panels.body_login body_login1;
-    private javax.swing.JButton create_request_btn;
-    private panels.sidebar_dsb sidebar_dsb2;
+    private panels.sidebar_dsb sidebar_dsb1;
     // End of variables declaration//GEN-END:variables
 }
