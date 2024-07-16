@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.leninsystem;
+
+import panels.sidebar_dsb;
 import javax.swing.JPanel;
 import db_connection.db_config;
 import java.sql.Connection;
@@ -26,12 +28,14 @@ public class login extends javax.swing.JFrame {
 
     private db_config dbConfig;
     private MongoDatabase database;
+    private sidebar_dsb sidebar;
     /**
      * Creates new form login
      */
     public login() {
         dbConfig = new db_config();
         database = dbConfig.getDatabase();
+        sidebar = new sidebar_dsb();
         initComponents();
     }
 
@@ -44,20 +48,19 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        body_login1 = new panels.body_login();
         header_login1 = new panels.header_login();
+        body_login1 = new panels.body_login();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         login_username = new javax.swing.JTextField();
         login_btn = new panels.MyButton();
         signup_btn = new panels.MyButton();
         login_pwd = new javax.swing.JPasswordField();
+        header_login2 = new panels.header_login();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         body_login1.setBackground(new java.awt.Color(255, 255, 255));
-
-        header_login1.setBackground(new java.awt.Color(0, 0, 153));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Username: ");
@@ -116,11 +119,10 @@ public class login extends javax.swing.JFrame {
         body_login1Layout.setHorizontalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(header_login1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(header_login2, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(48, 48, 48)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
@@ -137,8 +139,7 @@ public class login extends javax.swing.JFrame {
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(header_login1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(header_login2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -151,7 +152,7 @@ public class login extends javax.swing.JFrame {
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signup_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +179,8 @@ public class login extends javax.swing.JFrame {
         // Validate login credentials
         if (validateLogin(username, password)) {
             // If credentials are valid, proceed to the next page
-            home_dsb dsb = new home_dsb();
+            home_dsb dsb = new home_dsb(sidebar);
+            sidebar.addFrame(dsb);
             dsb.setVisible(true);
             dispose();  // Close the current login window
         } else {
@@ -291,6 +293,7 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panels.body_login body_login1;
     private panels.header_login header_login1;
+    private panels.header_login header_login2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private panels.MyButton login_btn;

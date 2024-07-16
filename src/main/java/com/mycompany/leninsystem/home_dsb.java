@@ -5,17 +5,18 @@
 package com.mycompany.leninsystem;
 
 import panels.sidebar_dsb;
+
 /**
  *
  * @author predator 300
  */
-public class RFQ_dsb extends javax.swing.JFrame {
+public class home_dsb extends javax.swing.JFrame {
 
     private sidebar_dsb sidebar;
     /**
      * Creates new form RFQ_dsb
      */
-    public RFQ_dsb(sidebar_dsb sidebar) {
+    public home_dsb(sidebar_dsb sidebar) {
         this.sidebar = sidebar;
         initComponents();
         this.add(sidebar); // Add the shared sidebar instance
@@ -31,8 +32,7 @@ public class RFQ_dsb extends javax.swing.JFrame {
     private void initComponents() {
 
         body_login1 = new panels.body_login();
-        create_request_btn = new javax.swing.JButton();
-        sidebar_dsb2 = new panels.sidebar_dsb();
+        sidebar_dsb1 = new panels.sidebar_dsb();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -40,43 +40,29 @@ public class RFQ_dsb extends javax.swing.JFrame {
 
         body_login1.setBackground(new java.awt.Color(255, 255, 255));
 
-        create_request_btn.setText("Create Request");
-        create_request_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                create_request_btnActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Request for Quote");
+        jLabel1.setText("Home");
 
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addComponent(sidebar_dsb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(body_login1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(create_request_btn))
-                    .addGroup(body_login1Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel1)))
-                .addGap(0, 173, Short.MAX_VALUE))
+                .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(238, 238, 238)
+                .addComponent(jLabel1)
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addComponent(create_request_btn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(body_login1Layout.createSequentialGroup()
-                .addComponent(sidebar_dsb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(body_login1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,18 +73,14 @@ public class RFQ_dsb extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(body_login1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(body_login1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void create_request_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_request_btnActionPerformed
-        // TODO add your handling code here:
-        RFQ_createRequest rfq_cr = new RFQ_createRequest();
-        rfq_cr.setVisible(true);
-    }//GEN-LAST:event_create_request_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,15 +112,14 @@ public class RFQ_dsb extends javax.swing.JFrame {
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new RFQ_dsb().setVisible(true);
+//                new home_dsb().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panels.body_login body_login1;
-    private javax.swing.JButton create_request_btn;
     private javax.swing.JLabel jLabel1;
-    private panels.sidebar_dsb sidebar_dsb2;
+    private panels.sidebar_dsb sidebar_dsb1;
     // End of variables declaration//GEN-END:variables
 }
