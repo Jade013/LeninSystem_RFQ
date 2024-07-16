@@ -84,6 +84,7 @@ public class RFQ_dsb extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         RFQView_Table = new javax.swing.JTable();
         sidebar_dsb1 = new panels.sidebar_dsb();
+        Refresh = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -110,6 +111,8 @@ public class RFQ_dsb extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(RFQView_Table);
 
+        Refresh.setText("Refresh");
+
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
@@ -119,7 +122,8 @@ public class RFQ_dsb extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(create_request_btn))
+                    .addComponent(create_request_btn)
+                    .addComponent(Refresh))
                 .addGap(38, 38, 38))
         );
         body_login1Layout.setVerticalGroup(
@@ -129,6 +133,8 @@ public class RFQ_dsb extends javax.swing.JFrame {
                 .addComponent(create_request_btn)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Refresh)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(body_login1Layout.createSequentialGroup()
                 .addComponent(sidebar_dsb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,6 +201,7 @@ public class RFQ_dsb extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable RFQView_Table;
+    private javax.swing.JToggleButton Refresh;
     private panels.body_login body_login1;
     private javax.swing.JButton create_request_btn;
     private javax.swing.JScrollPane jScrollPane1;
