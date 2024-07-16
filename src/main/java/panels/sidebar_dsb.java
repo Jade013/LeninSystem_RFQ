@@ -181,30 +181,46 @@ public class sidebar_dsb extends javax.swing.JPanel {
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
 //        JOptionPane.showMessageDialog(this, "\"Home\" Is Pressed");
-            closeAllFrames(); // Close all open frames
-            home_dsb home = new home_dsb(this); // Create a new home_dsb frame
-            home.setVisible(true); // Set the new frame to visible
-            openFrames.add(home); // Add the new frame to the list of open frames     
+        closeAllFrames(); // Close all open frames
+        JFrame currentFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (currentFrame != null) {
+            currentFrame.dispose();
+        }
+        home_dsb home = new home_dsb(); // Create a new home_dsb frame
+        home.setVisible(true); // Set the new frame to visible
+        openFrames.add(home); // Add the new frame to the list of open frames
     }//GEN-LAST:event_HomeActionPerformed
 
     private void RFQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RFQActionPerformed
 //        JOptionPane.showMessageDialog(this, "\"RFQ\" Is Pressed");
-            closeAllFrames(); // Close all open frames
-            RFQ_dsb rfq_dsb = new RFQ_dsb(this); // Create a new RFQ_dsb frame
-            rfq_dsb.setVisible(true); // Set the new frame to visible
-            openFrames.add(rfq_dsb); // Add the new frame to the list of open frames
+        closeAllFrames(); // Close all open frames
+        JFrame currentFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (currentFrame != null) {
+            currentFrame.dispose();
+        }
+        RFQ_dsb rfq_dsb = new RFQ_dsb(); // Create a new RFQ_dsb frame
+        rfq_dsb.setVisible(true); // Set the new frame to visible
+        openFrames.add(rfq_dsb); // Add the new frame to the list of open frames
     }//GEN-LAST:event_RFQActionPerformed
 
     private void BiddingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BiddingActionPerformed
-            closeAllFrames(); // Close all open frames
-            bidding_dsb bidding_dsb = new bidding_dsb(this); // Create a new bidding_dsb frame
-            bidding_dsb.setVisible(true); // Set the new frame to visible
-            openFrames.add(bidding_dsb); // Add the new frame to the list of open frames     
+        closeAllFrames(); // Close all open frames
+        JFrame currentFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (currentFrame != null) {
+            currentFrame.dispose();
+        }
+        bidding_dsb bidding_dsb = new bidding_dsb(); // Create a new bidding_dsb frame
+        bidding_dsb.setVisible(true); // Set the new frame to visible
+        openFrames.add(bidding_dsb); // Add the new frame to the list of open frames   
     }//GEN-LAST:event_BiddingActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            closeAllFrames();
-            JOptionPane.showMessageDialog(this, "\"Btn4\" Is Pressed");
+        closeAllFrames();
+        JFrame currentFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (currentFrame != null) {
+            currentFrame.dispose();
+        }
+        JOptionPane.showMessageDialog(this, "\"Btn4\" Is Pressed");
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

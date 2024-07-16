@@ -16,10 +16,14 @@ public class bidding_dsb extends javax.swing.JFrame {
     /**
      * Creates new form RFQ_dsb
      */
+    
+    public bidding_dsb() {
+        initComponents();
+    }
+    
     public bidding_dsb(sidebar_dsb sidebar) {
         this.sidebar = sidebar;
         initComponents();
-        this.add(sidebar); // Add the shared sidebar instance
     }
 
     /**

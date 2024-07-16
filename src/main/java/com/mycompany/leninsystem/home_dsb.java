@@ -12,14 +12,19 @@ import panels.sidebar_dsb;
  */
 public class home_dsb extends javax.swing.JFrame {
 
+    
     private sidebar_dsb sidebar;
     /**
      * Creates new form RFQ_dsb
      */
+    
+    public home_dsb() {
+        initComponents();
+    }
+    
     public home_dsb(sidebar_dsb sidebar) {
         this.sidebar = sidebar;
         initComponents();
-        this.add(sidebar); // Add the shared sidebar instance
     }
 
     /**
