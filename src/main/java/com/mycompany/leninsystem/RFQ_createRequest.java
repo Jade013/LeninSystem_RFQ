@@ -13,6 +13,10 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.bson.Document;
+import javax.swing.SwingWorker;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -28,13 +32,35 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     
     public RFQ_createRequest() {
         initComponents();
-        
         stockAvailabilityGroup = new javax.swing.ButtonGroup();
         stockAvailabilityGroup.add(Complete_stock);
         stockAvailabilityGroup.add(Incoplete_stock);
-        
+        populateSendToEmailComboBox();
     }
 
+    private void populateSendToEmailComboBox() {
+        new SwingWorker<List<Document>, Void>() {
+            @Override
+            protected List<Document> doInBackground() throws Exception {
+                db_config dbConfig = new db_config();
+                return dbConfig.getUsersData();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Document> users = get();
+                    for (Document user : users) {
+                        String email = user.getString("email");
+                        send_to_email.addItem(email);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(RFQ_createRequest.this, "Error fetching user emails: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }.execute();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +79,6 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         proj_location = new javax.swing.JTextField();
         client_name = new javax.swing.JTextField();
-        send_to_email = new javax.swing.JTextField();
         send_req_rfq_btn = new panels.MyButton();
         jLabel6 = new javax.swing.JLabel();
         client_email = new javax.swing.JTextField();
@@ -70,6 +95,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Upload_file = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         File_path = new javax.swing.JTextArea();
+        send_to_email = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -89,6 +115,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         jLabel5.setText("Send to (email):");
 
         proj_location.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        proj_location.setToolTipText("");
         proj_location.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 proj_locationActionPerformed(evt);
@@ -96,8 +123,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         });
 
         client_name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        send_to_email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        client_name.setToolTipText("");
 
         send_req_rfq_btn.setText("SUBMIT");
         send_req_rfq_btn.setBorderColor(new java.awt.Color(0, 0, 255));
@@ -135,6 +161,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         jLabel7.setText("Contact Number:");
 
         contact_no.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        contact_no.setToolTipText("Number must contain 11 letters, with the first two being \"09\"");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Stock Availability:");
@@ -162,7 +189,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Client_Information2.setText("PRODUCT INFORMATION");
 
         Upload_file.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Upload_file.setText("Upload Quoation File");
+        Upload_file.setText("Upload Quotation File");
         Upload_file.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Upload_fileActionPerformed(evt);
@@ -173,6 +200,12 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         File_path.setRows(5);
         jScrollPane1.setViewportView(File_path);
         File_path.setEnabled(false);
+
+        send_to_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                send_to_emailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
@@ -192,10 +225,6 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(body_login1Layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(request_by, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(body_login1Layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(contact_no, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -214,10 +243,15 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                                             .addComponent(jLabel6)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(client_email))
-                                        .addGroup(body_login1Layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(send_to_email))))
+                                        .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, body_login1Layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(send_to_email, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(body_login1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(request_by, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
                                     .addGap(188, 188, 188)
                                     .addComponent(Client_Information1)
@@ -280,10 +314,10 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(request_by, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(send_to_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(send_to_email))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(Client_Information2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -294,7 +328,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Upload_file)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(send_req_rfq_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -339,7 +373,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         String contactNo = contact_no.getText();
         String clientEmail = client_email.getText();
         String requestFrom = request_by.getText();
-        String sendTo = send_to_email.getText();
+        String sendTo = (String) send_to_email.getSelectedItem();
         String requestApp = "pending";
 
         
@@ -378,7 +412,6 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         contact_no.setText("");
         client_email.setText("");
         request_by.setText("");
-        send_to_email.setText("");
         stockAvailabilityGroup.clearSelection();
         File_path.setText("");
         selectedFile = null; // Reset selected file
@@ -402,6 +435,10 @@ public class RFQ_createRequest extends javax.swing.JFrame {
             selectedFile = null;
         }
     }//GEN-LAST:event_Upload_fileActionPerformed
+
+    private void send_to_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_to_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_send_to_emailActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -454,7 +491,6 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private panels.header_rfq header_rfq1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -465,6 +501,6 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private javax.swing.JTextField proj_location;
     private javax.swing.JTextField request_by;
     private panels.MyButton send_req_rfq_btn;
-    private javax.swing.JTextField send_to_email;
+    private javax.swing.JComboBox<String> send_to_email;
     // End of variables declaration//GEN-END:variables
 }

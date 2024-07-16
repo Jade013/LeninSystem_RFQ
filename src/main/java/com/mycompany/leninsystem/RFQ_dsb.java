@@ -5,6 +5,16 @@
 package com.mycompany.leninsystem;
 
 import panels.sidebar_dsb;
+import db_connection.db_config;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author predator 300
@@ -17,12 +27,48 @@ public class RFQ_dsb extends javax.swing.JFrame {
      */
     public RFQ_dsb() {
         initComponents();
+        fetchAndDisplayRFQData();
     }
 
         // Constructor with sidebar_dsb parameter
     public RFQ_dsb(sidebar_dsb sidebar) {
         this.sidebar = sidebar;
         initComponents();
+        fetchAndDisplayRFQData();
+    }
+    
+        /**
+     * Method to fetch data from MongoDB and populate the table
+     */
+    private void fetchAndDisplayRFQData() {
+        DefaultTableModel model = (DefaultTableModel) RFQView_Table.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        new SwingWorker<List<Document>, Void>() {
+            @Override
+            protected List<Document> doInBackground() throws Exception {
+                db_config dbConfig = new db_config();
+                return dbConfig.getRFQData();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Document> documents = get();
+                    for (Document doc : documents) {
+                        String clientName = doc.getString("client_name");
+                        String projLocation = doc.getString("proj_location");
+                        String stockAvailability = doc.getString("stock_availability");
+                        String requestApp = doc.getString("request_app");
+
+                        model.addRow(new Object[]{clientName, projLocation, stockAvailability, requestApp});
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(RFQ_dsb.this, "Error fetching data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }.execute();
     }
     /**
      * This method is called from within the constructor to initialize the form.
