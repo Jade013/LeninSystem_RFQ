@@ -454,6 +454,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private panels.header_rfq header_rfq1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.leninsystem;
+
+import panels.sidebar_dsb;
 import javax.swing.JPanel;
 import db_connection.db_config;
 import java.sql.Connection;
@@ -13,6 +15,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -24,12 +28,14 @@ public class login extends javax.swing.JFrame {
 
     private db_config dbConfig;
     private MongoDatabase database;
+    private sidebar_dsb sidebar;
     /**
      * Creates new form login
      */
     public login() {
         dbConfig = new db_config();
         database = dbConfig.getDatabase();
+        sidebar = new sidebar_dsb();
         initComponents();
     }
 
@@ -42,14 +48,15 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        body_login1 = new panels.body_login();
         header_login1 = new panels.header_login();
+        body_login1 = new panels.body_login();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         login_username = new javax.swing.JTextField();
         login_btn = new panels.MyButton();
         signup_btn = new panels.MyButton();
         login_pwd = new javax.swing.JPasswordField();
+        header_login2 = new panels.header_login();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +72,11 @@ public class login extends javax.swing.JFrame {
         login_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 login_usernameActionPerformed(evt);
+            }
+        });
+        login_username.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                loginUsernameKeyPressed(evt);
             }
         });
 
@@ -96,50 +108,51 @@ public class login extends javax.swing.JFrame {
                 login_pwdActionPerformed(evt);
             }
         });
+        login_pwd.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                loginPwdKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(body_login1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(15, 15, 15)))
-                .addGap(15, 15, 15)
+                .addComponent(header_login2, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(body_login1Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(body_login1Layout.createSequentialGroup()
                         .addComponent(signup_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(login_username)
-                    .addComponent(login_pwd))
+                    .addComponent(login_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(body_login1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(header_login1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                .addContainerGap())
         );
         body_login1Layout.setVerticalGroup(
             body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(body_login1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(header_login1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(header_login2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(signup_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(login_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signup_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,12 +179,16 @@ public class login extends javax.swing.JFrame {
         // Validate login credentials
         if (validateLogin(username, password)) {
             // If credentials are valid, proceed to the next page
-            select_dsb dsb = new select_dsb();
+            home_dsb dsb = new home_dsb(sidebar);
+            sidebar.addFrame(dsb);
             dsb.setVisible(true);
             dispose();  // Close the current login window
         } else {
             // If credentials are invalid, show an error message
             javax.swing.JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            login_username.setText("");
+            login_pwd.setText("");
+            login_username.requestFocus();
         }
     }//GEN-LAST:event_login_btnActionPerformed
 
@@ -189,6 +206,19 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_login_pwdActionPerformed
 
+    private void loginUsernameKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login_pwd.requestFocus();
+        }
+    }
+
+    // Method to simulate button click on Enter key press in login_pwd
+    private void loginPwdKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login_btn.doClick();
+        }
+    }
+    
     private boolean validateLogin(String username, String password) {
 //        boolean isValid = false;
 //        Connection connection = null;
@@ -263,6 +293,7 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panels.body_login body_login1;
     private panels.header_login header_login1;
+    private panels.header_login header_login2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private panels.MyButton login_btn;
