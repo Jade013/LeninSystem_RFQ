@@ -14,12 +14,11 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import javax.swing.JOptionPane;
+import com.mongodb.client.MongoCursor;
 import org.bson.Document;
-
-
-
-
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -82,6 +81,39 @@ public class db_config {
             close();
         }
     }
+        // Method to fetch RFQ data from the database
+    public List<Document> getRFQData() {
+        List<Document> rfqList = new ArrayList<>();
+        try {
+            MongoCollection<Document> collection = database.getCollection("RFQ");
+            try (MongoCursor<Document> cursor = collection.find().iterator()) {
+                while (cursor.hasNext()) {
+                    rfqList.add(cursor.next());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error fetching data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return rfqList;
+    }
+    
+    public List<Document> getUsersData() {
+        List<Document> usersList = new ArrayList<>();
+        try {
+            MongoCollection<Document> collection = database.getCollection("Users");
+            try (MongoCursor<Document> cursor = collection.find().iterator()) {
+                while (cursor.hasNext()) {
+                    usersList.add(cursor.next());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error fetching data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return usersList;
+    }
+
 }
     
     
