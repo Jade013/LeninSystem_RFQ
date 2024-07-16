@@ -7,6 +7,10 @@ package com.mycompany.leninsystem;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import db_connection.db_config;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 
@@ -20,6 +24,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
      * Creates new form RFQ_createRequest
      */
     private javax.swing.ButtonGroup stockAvailabilityGroup;
+    private File selectedFile; // Instance variable to hold the selected file
     
     public RFQ_createRequest() {
         initComponents();
@@ -39,6 +44,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         body_login1 = new panels.body_login();
         header_rfq1 = new panels.header_rfq();
         jLabel1 = new javax.swing.JLabel();
@@ -61,7 +67,9 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Incoplete_stock = new javax.swing.JRadioButton();
         Client_Information1 = new javax.swing.JLabel();
         Client_Information2 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        Upload_file = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        File_path = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -153,7 +161,18 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         Client_Information2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Client_Information2.setText("PRODUCT INFORMATION");
 
-        jLabel2.setText("jLabel2");
+        Upload_file.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Upload_file.setText("Upload Quoation File");
+        Upload_file.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Upload_fileActionPerformed(evt);
+            }
+        });
+
+        File_path.setColumns(20);
+        File_path.setRows(5);
+        jScrollPane1.setViewportView(File_path);
+        File_path.setEnabled(false);
 
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
@@ -211,7 +230,11 @@ public class RFQ_createRequest extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addGroup(body_login1Layout.createSequentialGroup()
+                        .addComponent(Upload_file)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, body_login1Layout.createSequentialGroup()
                             .addComponent(Client_Information)
@@ -268,8 +291,10 @@ public class RFQ_createRequest extends javax.swing.JFrame {
                     .addComponent(Complete_stock)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Upload_file)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(send_req_rfq_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,21 +336,12 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         //        String projectTitle = proj_title.getText();
         String clientName = client_name.getText();
         String projAddress = proj_location.getText();
-        String contactNoStr = contact_no.getText();
+        String contactNo = contact_no.getText();
         String clientEmail = client_email.getText();
         String requestFrom = request_by.getText();
         String sendTo = send_to_email.getText();
         String requestApp = "pending";
 
-
-
-        // Validate contact number
-        if (!contactNoStr.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Contact number must be numeric.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Integer contactNo = Integer.parseInt(contactNoStr);
         
         // Get stock availability value
         String stockAvailability;
@@ -337,9 +353,24 @@ public class RFQ_createRequest extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select stock availability.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // Read the file into a byte array
+        byte[] fileData = null;
+        if (selectedFile != null) {
+            try (FileInputStream fis = new FileInputStream(selectedFile)) {
+                fileData = fis.readAllBytes();
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error reading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No file selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         db_config dbConfig = new db_config();
-        dbConfig.insertRequest(clientName, contactNo, projAddress, clientEmail, requestFrom, sendTo, stockAvailability);
+        dbConfig.insertRequest(clientName, contactNo, projAddress, clientEmail, requestFrom, sendTo, stockAvailability, fileData);
 
         // Clear text fields
         client_name.setText("");
@@ -349,15 +380,32 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         request_by.setText("");
         send_to_email.setText("");
         stockAvailabilityGroup.clearSelection();
+        File_path.setText("");
+        selectedFile = null; // Reset selected file
+        jFileChooser1.setSelectedFile(null); // Reset file chooser selection
     }//GEN-LAST:event_send_req_rfq_btnActionPerformed
 
     private void proj_locationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proj_locationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_proj_locationActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void Upload_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Upload_fileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx", "xls"));
+        int returnValue = fileChooser.showOpenDialog(this);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            File_path.setText(selectedFile.getAbsolutePath());
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath()); // Debug statement
+        } else {
+            selectedFile = null;
+        }
+    }//GEN-LAST:event_Upload_fileActionPerformed
+
+//    /**
+//     * @param args the command line arguments
+//     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -395,13 +443,16 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private javax.swing.JLabel Client_Information1;
     private javax.swing.JLabel Client_Information2;
     private javax.swing.JRadioButton Complete_stock;
+    private javax.swing.JTextArea File_path;
     private javax.swing.JRadioButton Incoplete_stock;
+    private javax.swing.JButton Upload_file;
     private panels.body_login body_login1;
     private panels.MyButton cancel_btn;
     private javax.swing.JTextField client_email;
     private javax.swing.JTextField client_name;
     private javax.swing.JTextField contact_no;
     private panels.header_rfq header_rfq1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -410,6 +461,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField proj_location;
     private javax.swing.JTextField request_by;
     private panels.MyButton send_req_rfq_btn;
