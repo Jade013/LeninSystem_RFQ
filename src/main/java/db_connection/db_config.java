@@ -20,6 +20,7 @@ import com.mycompany.leninsystem.AESUtil;
 import org.bson.Document;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
@@ -84,7 +85,7 @@ public class db_config {
     
     public void insertUser(String username, String password, String email, String emailPassword) {
         try {
-            // Generate AES key and IV (Initialization Vector)
+             // Generate AES key and IV (Initialization Vector)
             SecretKey key = AESUtil.generateKey();
             IvParameterSpec iv = AESUtil.generateIV();
 
@@ -92,13 +93,19 @@ public class db_config {
             String encryptedPassword = AESUtil.encrypt(password, key, iv);
             String encryptedEmail = AESUtil.encrypt(email, key, iv);
 
+             // Convert key and IV to Base64 for storage
+            String keyBase64 = Base64.getEncoder().encodeToString(key.getEncoded());
+            String ivBase64 = Base64.getEncoder().encodeToString(iv.getIV());
+            
             // Create document to insert into MongoDB
             Document document = new Document("username", username)
                     .append("password", encryptedPassword)
                     .append("c_password", encryptedPassword)
                     .append("email", encryptedEmail)
 //                    .append("emailPassword", emailPassword); // Assuming email password is not encrypted
-                    .append("emailPassword", encryptedPassword); 
+                    .append("emailPassword", encryptedPassword)
+                    .append("key", keyBase64)
+                    .append("iv", ivBase64);
 
             // Insert document into "Users" collection
             MongoCollection<Document> collection = database.getCollection("Users");
