@@ -507,8 +507,8 @@ public class RFQ_createRequest extends javax.swing.JFrame {
             + "Stock Availability: " + stockAvailability + "\n"
             + "Date Issued: " + dateIssued;
 
-    try {
-        EmailUtil.sendEmail(sendTo, senderEmail, emailSubject, emailBody, host, senderEmail, senderPassword);
+     try {
+        EmailUtil.sendEmail(sendTo, senderEmail, emailSubject, emailBody, host, senderEmail, senderPassword, selectedFile);
         JOptionPane.showMessageDialog(this, "Request submitted and email sent successfully!");
     } catch (MessagingException e) {
         e.printStackTrace();
