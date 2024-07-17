@@ -61,7 +61,7 @@ public class sidebar_dsb extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Lenin_Logo 100x100.png"))); // NOI18N
 
-        Home.setFont(new java.awt.Font("League Spartan Black", 0, 25)); // NOI18N
+        Home.setFont(new java.awt.Font("Helvetica", 1, 25)); // NOI18N
         Home.setForeground(new java.awt.Color(255, 255, 255));
         Home.setText("HOME");
         Home.setBorder(null);
@@ -77,9 +77,9 @@ public class sidebar_dsb extends javax.swing.JPanel {
             }
         });
 
-        RFQ.setFont(new java.awt.Font("League Spartan Black", 0, 25)); // NOI18N
+        RFQ.setFont(new java.awt.Font("Helvetica", 1, 25)); // NOI18N
         RFQ.setForeground(new java.awt.Color(255, 255, 255));
-        RFQ.setText("RFQ");
+        RFQ.setText("QUOTATION");
         RFQ.setBorder(null);
         RFQ.setBorderPainted(false);
         RFQ.setContentAreaFilled(false);
@@ -93,7 +93,7 @@ public class sidebar_dsb extends javax.swing.JPanel {
             }
         });
 
-        Bidding.setFont(new java.awt.Font("League Spartan Black", 0, 25)); // NOI18N
+        Bidding.setFont(new java.awt.Font("Helvetica", 1, 25)); // NOI18N
         Bidding.setForeground(new java.awt.Color(255, 255, 255));
         Bidding.setText("BIDDING");
         Bidding.setBorder(null);
@@ -109,7 +109,7 @@ public class sidebar_dsb extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("League Spartan Black", 0, 25)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Helvetica", 1, 25)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("BTN4");
         jButton4.setBorder(null);
@@ -144,10 +144,10 @@ public class sidebar_dsb extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bidding, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(Bidding, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RFQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +162,7 @@ public class sidebar_dsb extends javax.swing.JPanel {
                 .addComponent(Bidding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
 
         RFQ.getAccessibleContext().setAccessibleDescription("");
