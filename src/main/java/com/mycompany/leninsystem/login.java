@@ -194,6 +194,8 @@ public class login extends javax.swing.JFrame {
 
     private void signup_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signup_btnActionPerformed
         // TODO add your handling code here:
+        create_user create = new create_user();
+        create.setVisible(true);
         
     }//GEN-LAST:event_signup_btnActionPerformed
 
