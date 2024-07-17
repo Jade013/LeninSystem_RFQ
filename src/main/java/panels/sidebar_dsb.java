@@ -79,7 +79,7 @@ public class sidebar_dsb extends javax.swing.JPanel {
 
         RFQ.setFont(new java.awt.Font("Helvetica", 1, 25)); // NOI18N
         RFQ.setForeground(new java.awt.Color(255, 255, 255));
-        RFQ.setText("RFQ");
+        RFQ.setText("QUOTATION");
         RFQ.setBorder(null);
         RFQ.setBorderPainted(false);
         RFQ.setContentAreaFilled(false);
@@ -144,10 +144,10 @@ public class sidebar_dsb extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Bidding, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(Bidding, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RFQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -46,13 +46,13 @@
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jButton4" alignment="0" max="-2" attributes="0"/>
-                              <Component id="Bidding" alignment="0" pref="111" max="32767" attributes="0"/>
+                              <Component id="Bidding" alignment="0" max="32767" attributes="0"/>
                               <Component id="RFQ" alignment="0" max="32767" attributes="0"/>
                               <Component id="Home" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,7 +117,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="RFQ"/>
+            <Property name="text" type="java.lang.String" value="QUOTATION"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
