@@ -17,6 +17,10 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Base64;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -251,12 +255,53 @@ public class login extends javax.swing.JFrame {
 //        }
 //
 //        return isValid;
+//
+//        MongoCollection<Document> collection = database.getCollection("Users");
+//        Bson filter = Filters.and(Filters.eq("username", username), Filters.eq("pwd", password));
+//        Document user = collection.find(filter).first();
+//        return user != null;
+  MongoCollection<Document> collection = database.getCollection("Users");
+    Bson filter = Filters.eq("username", username);
+    Document user = collection.find(filter).first();
 
-        MongoCollection<Document> collection = database.getCollection("Users");
-        Bson filter = Filters.and(Filters.eq("username", username), Filters.eq("pwd", password));
-        Document user = collection.find(filter).first();
-        return user != null;
+    if (user != null) {
+        String encryptedPassword = user.getString("password");
+        String keyBase64 = user.getString("key");
+        String ivBase64 = user.getString("iv");
+
+        // Ensure key and IV are not null before decryption
+        if (encryptedPassword != null && keyBase64 != null && ivBase64 != null) {
+            try {
+                // Convert Base64 key and IV back to byte arrays
+                byte[] keyBytes = Base64.getDecoder().decode(keyBase64);
+                byte[] ivBytes = Base64.getDecoder().decode(ivBase64);
+
+                // Reconstruct the SecretKey from the byte array
+                SecretKey key = new SecretKeySpec(keyBytes, "AES");
+                IvParameterSpec iv = new IvParameterSpec(ivBytes);
+
+                // Decrypt the stored encrypted password
+                String decryptedPassword = AESUtil.decrypt(encryptedPassword, key, iv);
+
+
+                // Compare decrypted password with user input
+                if (decryptedPassword.equals(password)) {
+                    return true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Add specific error handling here if needed
+            }
+        } else {
+            System.out.println("Encrypted password, key, or IV is null for user: " + username);
+        }
+    } else {
+        System.out.println("User not found: " + username);
     }
+    return false;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -288,6 +333,7 @@ public class login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new login().setVisible(true);
+                
             }
         });
     }
