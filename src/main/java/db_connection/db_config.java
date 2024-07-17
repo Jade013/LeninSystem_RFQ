@@ -15,10 +15,14 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Sorts;
+import com.mycompany.leninsystem.AESUtil;
 import org.bson.Document;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 
 /**
  *
@@ -51,7 +55,7 @@ public class db_config {
         }
     }
     
-    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability, byte[] fileData) {
+    public void insertRequest(String clientName, String contactNo, String projAddress, String clientEmail, String requestFrom, String sendTo, String stockAvailability, byte[] fileData, String dateIssued) {
         String requestApp = "pending";
 
         Document document = new Document("client_name", clientName)
@@ -60,14 +64,10 @@ public class db_config {
                 .append("client_email", clientEmail)
                 .append("request_from", requestFrom)
                 .append("send_to", sendTo)
+                .append("dateIssued", dateIssued)
                 .append("request_app", requestApp)
                 .append("stock_availability", stockAvailability);
                 
-    if (fileData != null) {
-        document.append("file_data", fileData);
-    } else {
-        System.out.println("lol");
-    }
 
         try {
             MongoDatabase database = getDatabase();
@@ -81,12 +81,44 @@ public class db_config {
             close();
         }
     }
+    
+    public void insertUser(String username, String password, String email, String emailPassword) {
+        try {
+            // Generate AES key and IV (Initialization Vector)
+            SecretKey key = AESUtil.generateKey();
+            IvParameterSpec iv = AESUtil.generateIV();
+
+            // Encrypt password and email
+            String encryptedPassword = AESUtil.encrypt(password, key, iv);
+            String encryptedEmail = AESUtil.encrypt(email, key, iv);
+
+            // Create document to insert into MongoDB
+            Document document = new Document("username", username)
+                    .append("password", encryptedPassword)
+                    .append("c_password", encryptedPassword)
+                    .append("email", encryptedEmail)
+//                    .append("emailPassword", emailPassword); // Assuming email password is not encrypted
+                    .append("emailPassword", encryptedPassword); 
+
+            // Insert document into "Users" collection
+            MongoCollection<Document> collection = database.getCollection("Users");
+            collection.insertOne(document);
+
+            JOptionPane.showMessageDialog(null, "User inserted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            close();
+        }
+    }
         // Method to fetch RFQ data from the database
     public List<Document> getRFQData() {
         List<Document> rfqList = new ArrayList<>();
         try {
             MongoCollection<Document> collection = database.getCollection("RFQ");
-            try (MongoCursor<Document> cursor = collection.find().iterator()) {
+            // Sort by dateIssued in descending order
+            try (MongoCursor<Document> cursor = collection.find().sort(Sorts.descending("dateIssued")).iterator()) {
                 while (cursor.hasNext()) {
                     rfqList.add(cursor.next());
                 }
