@@ -46,6 +46,7 @@ public class create_user extends javax.swing.JFrame {
         su_submit = new panels.MyButton();
         su_viewepwd = new javax.swing.JCheckBox();
         su_emailpwd = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,6 +114,8 @@ public class create_user extends javax.swing.JFrame {
 
         su_emailpwd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jLabel1.setText("Note: Use app password provided by google");
+
         javax.swing.GroupLayout body_login1Layout = new javax.swing.GroupLayout(body_login1);
         body_login1.setLayout(body_login1Layout);
         body_login1Layout.setHorizontalGroup(
@@ -124,29 +127,32 @@ public class create_user extends javax.swing.JFrame {
                         .addComponent(header_login1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))
                     .addGroup(body_login1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(su_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(body_login1Layout.createSequentialGroup()
-                                    .addComponent(username1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su_pwd))
-                                .addGroup(body_login1Layout.createSequentialGroup()
-                                    .addComponent(username2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su_cpwd))
-                                .addGroup(body_login1Layout.createSequentialGroup()
-                                    .addComponent(username3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su_email))
-                                .addGroup(body_login1Layout.createSequentialGroup()
-                                    .addComponent(username4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su_emailpwd))
-                                .addGroup(body_login1Layout.createSequentialGroup()
-                                    .addComponent(username)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su_username, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(body_login1Layout.createSequentialGroup()
+                                .addComponent(username1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(su_pwd))
+                            .addGroup(body_login1Layout.createSequentialGroup()
+                                .addComponent(username2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(su_cpwd))
+                            .addGroup(body_login1Layout.createSequentialGroup()
+                                .addComponent(username3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(su_email))
+                            .addGroup(body_login1Layout.createSequentialGroup()
+                                .addComponent(username)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(su_username, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(body_login1Layout.createSequentialGroup()
+                                .addComponent(username4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(su_emailpwd)
+                                    .addGroup(body_login1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(su_submit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(body_login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(su_viewpwd)
@@ -184,9 +190,11 @@ public class create_user extends javax.swing.JFrame {
                     .addComponent(username4)
                     .addComponent(su_viewepwd)
                     .addComponent(su_emailpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(su_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,6 +272,7 @@ public class create_user extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panels.body_login body_login1;
     private panels.header_login header_login1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField su_cpwd;
     private javax.swing.JTextField su_email;
     private javax.swing.JPasswordField su_emailpwd;

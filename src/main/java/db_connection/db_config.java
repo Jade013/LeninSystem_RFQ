@@ -74,7 +74,7 @@ public class db_config {
             MongoDatabase database = getDatabase();
             MongoCollection<Document> collection = database.getCollection("RFQ");
             collection.insertOne(document);
-            JOptionPane.showMessageDialog(null, "Request submitted successfully!");
+            JOptionPane.showMessageDialog(null, "Request and email submitted successfully!");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
