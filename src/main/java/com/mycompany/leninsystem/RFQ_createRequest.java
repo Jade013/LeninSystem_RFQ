@@ -7,6 +7,8 @@ package com.mycompany.leninsystem;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import db_connection.db_config;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +22,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.mail.MessagingException;
 
 
 
@@ -46,51 +54,67 @@ public class RFQ_createRequest extends javax.swing.JFrame {
     
     private void populateRequestByEmailComboBox() {
         new SwingWorker<List<Document>, Void>() {
-            @Override
-            protected List<Document> doInBackground() throws Exception {
-                db_config dbConfig = new db_config();
-                return dbConfig.getUsersData();
-            }
+        @Override
+        protected List<Document> doInBackground() throws Exception {
+            db_config dbConfig = new db_config();
+            return dbConfig.getUsersData();
+        }
 
-            @Override
-            protected void done() {
-                try {
-                    List<Document> users = get();
-                    for (Document user : users) {
-                        String email = user.getString("email");
-                        request_by.addItem(email);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(RFQ_createRequest.this, "Error fetching user emails: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        @Override
+        protected void done() {
+            try {
+                List<Document> users = get();
+                for (Document user : users) {
+                    String encryptedEmail = user.getString("email");
+                    String keyBase64 = user.getString("key");
+                    String ivBase64 = user.getString("iv");
+
+                    SecretKey key = AESUtil.getDecryptionKey(keyBase64);
+                    IvParameterSpec iv = AESUtil.getDecryptionIV(ivBase64);
+                    String decryptedEmail = AESUtil.decrypt(encryptedEmail, key, iv);
+
+                    request_by.addItem(decryptedEmail);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(RFQ_createRequest.this, "Error fetching user emails: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }.execute();
+        }
+    }.execute();
     }
 
     private void populateSendToEmailComboBox() {
-        new SwingWorker<List<Document>, Void>() {
-            @Override
-            protected List<Document> doInBackground() throws Exception {
-                db_config dbConfig = new db_config();
-                return dbConfig.getUsersData();
-            }
+    new SwingWorker<List<Document>, Void>() {
+        @Override
+        protected List<Document> doInBackground() throws Exception {
+            db_config dbConfig = new db_config();
+            return dbConfig.getUsersData();
+        }
 
-            @Override
-            protected void done() {
-                try {
-                    List<Document> users = get();
-                    for (Document user : users) {
-                        String email = user.getString("email");
-                        send_to_email.addItem(email);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(RFQ_createRequest.this, "Error fetching user emails: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        @Override
+        protected void done() {
+            try {
+                List<Document> users = get();
+                for (Document user : users) {
+                    String encryptedEmail = user.getString("email");
+                    String keyBase64 = user.getString("key");
+                    String ivBase64 = user.getString("iv");
+
+                    SecretKey key = AESUtil.getDecryptionKey(keyBase64);
+                    IvParameterSpec iv = AESUtil.getDecryptionIV(ivBase64);
+                    String decryptedEmail = AESUtil.decrypt(encryptedEmail, key, iv);
+
+                    send_to_email.addItem(decryptedEmail);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(RFQ_createRequest.this, "Error fetching user emails: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }.execute();
-    }
+        }
+    }.execute();
+}
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -464,9 +488,82 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String dateIssued = now.format(formatter);
 
-        db_config dbConfig = new db_config();
-        dbConfig.insertRequest(clientName, contactNo, projAddress, clientEmail, requestFrom, sendTo, stockAvailability, fileData, dateIssued);
+    db_config dbConfig = new db_config();
+        
 
+ // Hardcoded email credentials
+    String senderEmail = "remnus013@gmail.com";
+    String senderPassword = "ootv locy pxca wzwz";
+    String host = "smtp.gmail.com"; // Replace with your SMTP server
+//
+//    String emailSubject = "New RFQ Request Submitted";
+//    String emailBody = "Client Name: " + clientName + "\n"
+//            + "Project Address: " + projAddress + "\n"
+//            + "Contact Number: " + contactNo + "\n"
+//            + "Client Email: " + clientEmail + "\n"
+//            + "Requested By: " + requestFrom + "\n"
+//            + "Send To: " + sendTo + "\n"
+//            + "Stock Availability: " + stockAvailability + "\n"
+//            + "Date Issued: " + dateIssued;
+
+
+    // **Improved confirmation link generation:**
+
+    // 1. Generate a unique confirmation code (consider UUID)
+    String confirmationCode = UUID.randomUUID().toString();  // Replace with a more secure method
+
+    // 2. Construct the confirmation link URL
+    String baseUrl = "https://your-application.com/confirm-rfq";  // Replace with your actual application URL
+    String confirmationLink = baseUrl + "?code=" + confirmationCode;
+    
+    
+
+    // 3. Store confirmation code and request details in database (consider secure storage)
+    // Assuming you have a database connection established (dbConfig)
+    Document requestData = new Document();
+    requestData.put("clientName", clientName);
+    requestData.put("projAddress", projAddress);
+    requestData.put("contactNo", contactNo);
+    requestData.put("clientEmail", clientEmail);
+    requestData.put("requestFrom", requestFrom);
+    requestData.put("sendTo", sendTo);
+    requestData.put("requestApp", requestApp);
+    requestData.put("stockAvailability", stockAvailability);
+    requestData.put("fileData", fileData);  // Secure storage for file data is essential
+    requestData.put("dateIssued", dateIssued);
+    requestData.put("confirmationCode", confirmationCode);  // Store confirmation code in the database
+
+    // **Improved email content with confirmation link:**
+
+    String emailSubject = "RFQ Request Confirmation";
+    String emailBody = "Grettings!\n\n" + " Attached below is the quotation for " + clientName + ".\n\n " +
+            "Please click on the following link to confirm your request:\n" +
+            confirmationLink + "\n\n" +
+            "If you did not submit this request, please disregard this email.\n\n" +
+            "Sincerely,\n" +
+            "The RFQ Team";
+     try {
+        
+        
+//        EmailUtil.sendEmail(sendTo, senderEmail, emailSubject, emailBody, host, senderEmail, senderPassword, selectedFile);
+//        dbConfig.insertRequest(clientName, contactNo, projAddress, clientEmail, requestFrom, sendTo, stockAvailability, fileData, dateIssued);
+//        JOptionPane.showMessageDialog(this, "Request submitted and email sent successfully!");
+        
+        boolean emailSent = EmailUtil.sendEmail(sendTo, senderEmail, emailSubject, emailBody, host, senderEmail, senderPassword, selectedFile);
+
+        if (emailSent) {
+            // Proceed with database insertion
+            dbConfig.insertRequest(clientName, contactNo, projAddress, clientEmail, requestFrom, sendTo, stockAvailability, fileData, dateIssued);
+        } else {
+            // Handle email sending failure
+            System.out.println("Failed to send email and insert request.");
+        }
+        
+        
+    } catch (MessagingException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error sending email: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
         // Clear text fields
         client_name.setText("");
         proj_location.setText("");
@@ -476,6 +573,7 @@ public class RFQ_createRequest extends javax.swing.JFrame {
         File_path.setText("");
         selectedFile = null; // Reset selected file
         jFileChooser1.setSelectedFile(null); // Reset file chooser selection
+        
     }//GEN-LAST:event_send_req_rfq_btnActionPerformed
 
     private void proj_locationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proj_locationActionPerformed

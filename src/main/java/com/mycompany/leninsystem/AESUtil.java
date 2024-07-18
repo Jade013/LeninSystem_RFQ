@@ -19,6 +19,7 @@ import java.util.Base64;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javax.crypto.spec.SecretKeySpec;
 
 public class AESUtil {
 
@@ -65,5 +66,17 @@ public class AESUtil {
             throws IOException {
         byte[] encryptedBytes = Files.readAllBytes(Paths.get(fileName));
         return new String(encryptedBytes);
+    }
+    
+    // Convert Base64 encoded key to SecretKey
+    public static SecretKey getDecryptionKey(String keyBase64) {
+        byte[] decodedKey = Base64.getDecoder().decode(keyBase64);
+        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    }
+
+    // Convert Base64 encoded IV to IvParameterSpec
+    public static IvParameterSpec getDecryptionIV(String ivBase64) {
+        byte[] decodedIV = Base64.getDecoder().decode(ivBase64);
+        return new IvParameterSpec(decodedIV);
     }
 }

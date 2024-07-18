@@ -226,41 +226,7 @@ public class login extends javax.swing.JFrame {
     }
     
     private boolean validateLogin(String username, String password) {
-//        boolean isValid = false;
-//        Connection connection = null;
-//        PreparedStatement statement = null;
-//        ResultSet resultSet = null;
-//
-//        try {
-//            connection = db_config.getConnection();
-//            String sql = "SELECT * FROM users WHERE username = ? AND pwd = ?";
-//            statement = connection.prepareStatement(sql);
-//            statement.setString(1, username);
-//            statement.setString(2, password);
-//            resultSet = statement.executeQuery();
-//
-//            if (resultSet.next()) {
-//                isValid = true;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (resultSet != null) resultSet.close();
-//                if (statement != null) statement.close();
-//                if (connection != null) connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return isValid;
-//
-//        MongoCollection<Document> collection = database.getCollection("Users");
-//        Bson filter = Filters.and(Filters.eq("username", username), Filters.eq("pwd", password));
-//        Document user = collection.find(filter).first();
-//        return user != null;
-  MongoCollection<Document> collection = database.getCollection("Users");
+    MongoCollection<Document> collection = database.getCollection("Users");
     Bson filter = Filters.eq("username", username);
     Document user = collection.find(filter).first();
 
